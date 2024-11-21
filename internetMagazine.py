@@ -28,6 +28,8 @@ def launching_the_browser(base_url):
     # переход по url в браузере/развернуть на весь экран
     driver_chrome.get(base_url)
     driver_chrome.maximize_window()
+    # добавление неявного ожидания
+    driver_chrome.implicitly_wait(5)
     print("Запуск браузера.\nПереход по URL.")
     return driver_chrome
 
