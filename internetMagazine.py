@@ -1,5 +1,3 @@
-import time
-
 from selenium import webdriver
 from faker import Faker
 from selenium.webdriver.chrome.service import Service as ChromeService

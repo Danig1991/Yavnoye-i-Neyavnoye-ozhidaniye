@@ -2,7 +2,6 @@ from internetMagazine import *
 
 
 def run(base_url):
-    global selection
     # запуск браузера/переход по URL
     driver_chrome = launching_the_browser(base_url)
     # авторизация на сайте
@@ -17,7 +16,18 @@ def run(base_url):
             ">> "
         ))
         if selection in range(1, 7):
+            # выбор продукта
             product_selection(driver_chrome, selection)
+            # переход в корзину, нажать Checkout
+            click_shopping_cart_click_checkout(driver_chrome, all_products, selection)
+            # заполнение формы случайными данными
+            fill_with_random_data(driver_chrome)
+            # проверка соответствия на финальном этапе
+            final_compliance_check(driver_chrome, all_products, selection)
+            # проверка наличия фразы об успешности
+            check_complete_header(driver_chrome)
+            # закрытие браузера
+            closing_the_browser(driver_chrome)
         elif selection == 0:
             print("Завершение программы.")
             closing_the_browser(driver_chrome)
@@ -25,20 +35,10 @@ def run(base_url):
             print("Соответствие не найдено!\n")
             closing_the_browser(driver_chrome)
 
+
     except ValueError:
         print("Нужно было ввести число!\n")
         closing_the_browser(driver_chrome)
-
-    # переход в корзину, нажать Checkout
-    click_shopping_cart_click_checkout(driver_chrome, all_products, selection)
-    # заполнение формы случайными данными
-    fill_with_random_data(driver_chrome)
-    # проверка соответствия на финальном этапе
-    final_compliance_check(driver_chrome, all_products, selection)
-    # проверка наличия фразы об успешности
-    check_complete_header(driver_chrome)
-    # закрытие браузера
-    closing_the_browser(driver_chrome)
 
 
 run('https://www.saucedemo.com/')
