@@ -74,7 +74,7 @@ def product_selection(driver_chrome, number):
     ).click()
 
 
-# проверка выбора/стоимости продукта
+# проверка названия/стоимости продукта
 def check_name_price_product(driver_chrome, all_products, number):
     value_name_select_product = all_products[number - 1]["name"]
     value_name_product_in_shopping_cart = driver_chrome.find_element(
@@ -129,7 +129,10 @@ def final_compliance_check(driver_chrome, all_products, number):
     check_name_price_product(driver_chrome, all_products, number)
 
     value_price_select_product = all_products[number - 1]["price"]
-    value_price_total = driver_chrome.find_element(By.XPATH, "//div[@class='summary_subtotal_label']").text[12:]
+    value_price_total = driver_chrome.find_element(
+        By.XPATH, "//div[@class='summary_subtotal_label']"
+    ).text[12:]
+
     assert value_price_select_product == value_price_total[1:], \
         "Ошибка: Цена должна совпадать!"
     print(f"Цена всего - {value_price_total}")
@@ -140,7 +143,10 @@ def final_compliance_check(driver_chrome, all_products, number):
 
 # проверка наличия фразы об успешности, кнопка Back Home
 def check_complete_header(driver_chrome):
-    value_complete_header = driver_chrome.find_element(By.XPATH, "//h2[@class='complete-header']").text
+    value_complete_header = driver_chrome.find_element(
+        By.XPATH, "//h2[@class='complete-header']"
+    ).text
+
     assert value_complete_header == "Thank you for your order!", \
         "Ошибка: Текст заголовка должен совпадать!"
     print(f"Текст заголовка - \"{value_complete_header}\".")
